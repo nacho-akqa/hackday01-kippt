@@ -1,5 +1,5 @@
-/*jslint bitwise: false, browser: true, windows: false, evil: false, white: false, plusplus: true, vars: true, evil:true, regexp:true */
-/*global exports:false*/
+/*jshint bitwise:false, curly:true, eqeqeq:true, forin:true, immed:true, latedef:true, newcap:true, noarg:true, noempty:false, nonew:true, plusplus:false, regexp:false, undef:true, strict:true, trailing:true, expr:true, regexdash:true, browser:true, jquery:true, onevar:true */
+/*global require:false, process:false, console:false, __dirname:false, exports:false */
 /*
  * GET home page.
  */
@@ -17,9 +17,10 @@ exports.index = function (req, res) {
         str = fs.readFileSync('./views/email.ejs', 'utf8'),
         mailOptions = {
             from: "Fred Foo ✔ <sickpuppy@gmail.com>", // sender address
-            to: "sickpuppy@gmail.com, akqahackday@gmail.com", // list of receivers
-            subject: "Hello ✔", // Subject line
-            html: str
+            to: "akqa.hackathon@gmail.com", // list of receivers
+            subject: "AKQA hack day test email", // Subject line
+            html: str,
+            generateTextFromHTML: true
         };
     smtpTransport.sendMail(mailOptions, function (error, response) {
         res.render('emailconfirm', {
@@ -34,6 +35,6 @@ exports.index = function (req, res) {
         }
 
         // if you don't want to use this transport object anymore, uncomment following line
-        //smtpTransport.close(); // shut down the connection pool, no more messages
+        smtpTransport.close(); // shut down the connection pool, no more messages
     });
 };

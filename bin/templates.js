@@ -2,8 +2,9 @@
 exports.templates = (function() {
     var ejs = require('ejs'),
         fs = require('fs'),
-        defaultPath = __dirname + '/../templates/',
-        defaultTemplate = 'template-email.html',
+        config = require('../bin/app_config');
+        defaultPath = config.AppConfig.Templates.path,
+        defaultTemplate = config.AppConfig.Templates.template,
         mockData = {
             clips: [{
                 "title": "Nodemailer",

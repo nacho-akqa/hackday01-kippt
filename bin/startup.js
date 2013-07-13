@@ -1,19 +1,17 @@
-exports.start = function() {
+exports.start = function(args, callBack) {
 
 	// consts
-	var SCHEDULED_RUN = {
-			dayOfWeek: 6, // saturday
-			hour: 13,
-			minute: 00
-		},
-		MANUAL_DELAY = 5,
+	var MANUAL_DELAY = 5,
 		DAYS_OF_WEEK = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 	
 	// dependencies
 	var schedule = require('node-schedule');
+	var config = require('../bin/app_config').AppConfig;
+	
+	console.log(args);
 	
 	// vars
-	var isManualMode = (arguments['0'].indexOf('manual') > -1),
+	var isManualMode = (args.indexOf('manual') > -1),
 		rule = new schedule.RecurrenceRule(),
 		nextRun = {};
 	
@@ -28,13 +26,20 @@ exports.start = function() {
 	} else {
 		console.log("Running Schedule Mode");
 		
-		nextRun = SCHEDULED_RUN;
+		nextRun = config.Scheduler;
+		
+		console.log(config);
 		
 		console.log("Next run at " + DAYS_OF_WEEK[nextRun.dayOfWeek] + ' at ' + nextRun.hour + ':' + nextRun.minute);
 	}
 
-	var j = schedule.scheduleJob(nextRun, function(){
-		console.log('Scheduled task');
-		return true;
+	schedule.scheduleJob(nextRun, function(){
+		console.log('Scheduled task fired');
+		if(callBack){
+			console.log("Executing callback");
+			callBack();
+		} else {
+			console.log("No callback specified");
+		}
 	});
 };

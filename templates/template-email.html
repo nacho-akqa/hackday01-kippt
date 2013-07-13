@@ -63,6 +63,10 @@
             font-size: 12px;
         }
 
+        .clip-add-comment {
+            font-size: 12px;
+        }
+
         .clip-posted {
             font-size: 12px;
         }
@@ -131,6 +135,7 @@
                                     <% } %>
                                 </a>
                                 <p class="clip-url"><a href="<%= clip.url %>"><%= clip.url %></a></p>
+                                <p class="clip-add-comment"><a href="https://kippt.com<%= clip.app_url %>">Add a comment</a></p>
                                 <p class="clip-posted">Posted: <%= (new Date(clip.created)).toUTCString() %></p>
                                 <% if (clip.notes) { %>
                                 <p class="clip-tags">Tags: <%= clip.notes %></p>
